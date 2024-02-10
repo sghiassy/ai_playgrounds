@@ -63,9 +63,9 @@ def text2speech(message):
         file.write(response.content)
 
 
-# scenario = img2text("image.jpg")
-scenario = "a group of people jumping in the air with their hands in the air"
-# story = generate_story(scenario)
-story = "A spontaneous burst of joy swept through the crowd as they soared into the sky, united by freedom and exhilaration."
+scenario = img2text("image.png")
+# scenario = "a group of people jumping in the air with their hands in the air"
+story = generate_story(scenario)
+# story = "A spontaneous burst of joy swept through the crowd as they soared into the sky, united by freedom and exhilaration."
 
 text2speech(story)
