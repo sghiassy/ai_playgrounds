@@ -1,0 +1,12 @@
+{
+  "name": "hugging_face-langchain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:sghiassy/hugging_face-langchain.git",
+  "author": "Shaheen Ghiassy <sghiassy@linkedin.com>",
+  "license": "MIT",
+  "scripts": {
+    "freeze": "pip freeze > requirements.txt",
+    "start": "python app.py"
+  }
+}
