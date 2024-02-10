@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "freeze": "pip freeze > requirements.txt",
-    "start": "python app.py"
+    "start": "python app.py",
+	"init": "python3 -m venv .venv",
+	"activate": "source .venv/bin/activate; pip install -r requirements.txt"
   }
 }
