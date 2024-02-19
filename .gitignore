@@ -4,6 +4,7 @@ audio.flac
 *.webm
 OAI_CONFIG_LIST
 screenshot.jpg
+.cache
 
 ################
 # Python

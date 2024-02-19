@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "freeze": "pip freeze > requirements.txt",
-    "start": "python app.py",
+    "activate": "source .venv/bin/activate",
     "first": "python3 -m venv .venv",
-    "activate": "source .venv/bin/activate; pip install -r requirements.txt"
+    "freeze": "pip freeze > requirements.txt",
+    "install": "pip install -r requirements.txt",
+    "start": "python app.py"
   }
 }

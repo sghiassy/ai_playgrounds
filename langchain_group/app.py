@@ -1,6 +1,7 @@
 import os
 import requests
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+# from langchain import PromptTemplate
 from langchain.prompts import PromptTemplate
 from langchain.chains.summarize import load_summarize_chain
 from bs4 import BeautifulSoup
@@ -11,6 +12,7 @@ from autogen import config_list_from_json
 from autogen.agentchat.contrib.gpt_assistant_agent import GPTAssistantAgent
 from autogen import UserProxyAgent
 import autogen
+
 
 load_dotenv()
 browserless_api_key = os.getenv("BROWSERLESS_API_KEY")
@@ -150,7 +152,7 @@ researcher = GPTAssistantAgent(
     name="researcher",
     llm_config={
         "config_list": config_list,
-        "assistant_id": "asst_qyvioid5My8K3SdFClaEnwmB",
+        "assistant_id": "asst_8Omhf1nuemINsT3lKNpolK7U",
     },
 )
 
@@ -163,7 +165,7 @@ research_manager = GPTAssistantAgent(
     name="research_manager",
     llm_config={
         "config_list": config_list,
-        "assistant_id": "asst_C1Ta5XmmEcYD6vnOSVflnwG9",
+        "assistant_id": "asst_m9olpYku7iAS92LtyvWasGM9",
     },
 )
 
@@ -173,7 +175,7 @@ director = GPTAssistantAgent(
     name="director",
     llm_config={
         "config_list": config_list,
-        "assistant_id": "asst_zVBJGch5mOyCYl9H1J3L9Ime",
+        "assistant_id": "asst_q3x2GOghocdIWvHehHze4KoA",
     },
 )
 
@@ -198,6 +200,6 @@ group_chat_manager = autogen.GroupChatManager(
 
 # ------------------ start conversation ------------------ #
 message = """
-Research the funding stage/amount & pricing for each company in the list: https://airtable.com/appj0J4gFpvLrQWjI/tblF4OmG6oLjYtgZl/viwmFx2ttAVrJm0E3?blocks=hide
+Research the funding stage/amount & pricing for each company in the list: https://airtable.com/appfnzijVuAUkmdrX/tbl5k3fFYXxIxqgFA/viwfo3FjjASxbgtY5?blocks=hide
 """
 user_proxy.initiate_chat(group_chat_manager, message=message)
