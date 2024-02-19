@@ -2,8 +2,7 @@ const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
 
-const url = process.argv[2];
-const timeout = 1500;
+const url = process.argv[2] || "https://openai.com/pricing";
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -22,18 +21,12 @@ const timeout = 1500;
     deviceScaleFactor: 1,
   });
 
-  await page.goto(url, {
-    waitUntil: "domcontentloaded",
-    timeout: timeout,
+  await page.goto(url, { waitUntil: "domcontentloaded" });
+
+  await page.screenshot({
+    path: "screenshot.jpg",
+    fullPage: true,
   });
 
-  //   await page.waitForTimeout(timeout);
-  setTimeout(async () => {
-    await page.screenshot({
-      path: "screenshot.jpg",
-      fullPage: true,
-    });
-
-    await browser.close();
-  }, timeout);
+  await browser.close();
 })();

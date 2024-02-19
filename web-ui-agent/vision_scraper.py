@@ -27,6 +27,7 @@ def url2screenshot(url):
 
     exitcode = result.returncode
     output = result.stdout
+    print(f"exitcode {exitcode} output {output}")
 
     if not os.path.exists("screenshot.jpg"):
         print("ERROR2")
