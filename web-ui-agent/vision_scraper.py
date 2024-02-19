@@ -88,5 +88,12 @@ def visionCrawl(url, prompt):
         return visionExtract(b64_image, prompt)
 
 
-response = visionCrawl("https://openai.com/chatgpt/pricing", "Extract the pricing info")
-print(response)
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Scan a webpage")
+    parser.add_argument(
+        "--url", metavar="url", required=True, help="The URL to capture"
+    )
+    args = parser.parse_args()
+    response = visionCrawl(args.url, "Extract the pricing info")
+    print(response)

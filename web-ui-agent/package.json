@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "freeze": "pip freeze > requirements.txt",
-    "start": "python vision_scraper.py",
+    "start": "python vision_scraper.py --url=\"https://openai.com/chatgpt/pricing\"",
     "first": "python3 -m venv .venv",
     "activate": "source .venv/bin/activate; pip install -r requirements.txt"
   },
