@@ -87,5 +87,5 @@ def visionCrawl(url, prompt):
         return visionExtract(b64_image, prompt)
 
 
-response = visionCrawl("https://relevanceai.com/pricing", "Extract the pricing info")
+response = visionCrawl("https://openai.com/chatgpt/pricing", "Extract the pricing info")
 print(response)
