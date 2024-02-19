@@ -1,0 +1,12 @@
+{
+  "name": "langchain_group",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "freeze": "pip freeze > requirements.txt",
+    "start": "python app.py",
+    "first": "python3 -m venv .venv",
+    "activate": "source .venv/bin/activate; pip install -r requirements.txt"
+  }
+}
