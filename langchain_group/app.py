@@ -1,10 +1,13 @@
 import os
 import requests
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain import PromptTemplate
+# from langchain import PromptTemplate
+# from langchain_community.Prompts import PromptTemplate
+from langchain.prompts import PromptTemplate
 from langchain.chains.summarize import load_summarize_chain
 from bs4 import BeautifulSoup
-from langchain.chat_models import ChatOpenAI
+# from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from dotenv import load_dotenv
 import json
 from autogen import config_list_from_json
