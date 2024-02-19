@@ -29,7 +29,7 @@ def url2screenshot(url):
     output = result.stdout
 
     if not os.path.exists("screenshot.jpg"):
-        print("ERROR")
+        print("ERROR2")
         return "Failed to scrape the website"
 
     b64_image = image_b64("screenshot.jpg")

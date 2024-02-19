@@ -3,7 +3,7 @@ const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
 
 const url = process.argv[2];
-const timeout = 5000;
+const timeout = 1500;
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -27,12 +27,13 @@ const timeout = 5000;
     timeout: timeout,
   });
 
-  await page.waitForTimeout(timeout);
+  //   await page.waitForTimeout(timeout);
+  setTimeout(async () => {
+    await page.screenshot({
+      path: "screenshot.jpg",
+      fullPage: true,
+    });
 
-  await page.screenshot({
-    path: "screenshot.jpg",
-    fullPage: true,
-  });
-
-  await browser.close();
+    await browser.close();
+  }, timeout);
 })();
