@@ -124,22 +124,22 @@ def get_airtable_records(base_id="appfnzijVuAUkmdrX", table_id="tbl5k3fFYXxIxqgF
 
 
 def update_single_airtable_record(base_id, table_id, id, fields):
-    url = f"https://api.airtable.com/v0/{base_id}/{table_id}"
-    print(f"attempting to access {f"https://api.airtable.com/v0/{base_id}/{table_id}"}")
+    url = f"https://api.airtable.com/v0/{base_id}/{table_id}/{id}"
+    print(f"attempting to access {f"https://api.airtable.com/v0/{base_id}/{table_id}/{id}"} with fields {fields}")
 
     headers = {
         "Authorization": f"Bearer {airtable_api_key}",
         "Content-Type": "application/json",
     }
 
-    data = {"records": [{"id": id, "fields": fields}]}
+    data = {"fields": fields}
 
     response = requests.patch(url, headers=headers, data=json.dumps(data))
     data = response.json()
     return data
 
-
 # ------------------ Create agent ------------------ #
+
 
 # Create user proxy agent
 user_proxy = UserProxyAgent(
@@ -202,6 +202,6 @@ group_chat_manager = autogen.GroupChatManager(
 
 # ------------------ start conversation ------------------ #
 message = """
-Research the funding stage/amount & pricing for each company in the list: https://airtable.com/appfnzijVuAUkmdrX/tbl5k3fFYXxIxqgFA/viwfo3FjjASxbgtY5?blocks=hide
+Research the stock price and founder for each company in the list: https://airtable.com/appfnzijVuAUkmdrX/tbl5k3fFYXxIxqgFA/viwfo3FjjASxbgtY5?blocks=hide
 """
 user_proxy.initiate_chat(group_chat_manager, message=message)
