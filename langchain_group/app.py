@@ -12,6 +12,7 @@ from autogen import config_list_from_json
 from autogen.agentchat.contrib.gpt_assistant_agent import GPTAssistantAgent
 from autogen import UserProxyAgent
 import autogen
+import yfinance as yahooFinance
 
 
 load_dotenv()
@@ -133,10 +134,18 @@ def update_single_airtable_record(base_id, table_id, id, fields):
     }
 
     data = {"fields": fields}
+    print(f"actual fields are {json.dumps(data)}")
 
     response = requests.patch(url, headers=headers, data=json.dumps(data))
     data = response.json()
     return data
+
+
+def get_stock_price(ticker):
+    print(f"looking up info for {ticker}")
+    stock = yahooFinance.Ticker(ticker)
+    print(f"stock.info {stock.info}")
+    return stock.info
 
 # ------------------ Create agent ------------------ #
 
@@ -159,7 +168,11 @@ researcher = GPTAssistantAgent(
 )
 
 researcher.register_function(
-    function_map={"web_scraping": web_scraping, "google_search": google_search}
+    function_map={
+        "web_scraping": web_scraping,
+        "google_search": google_search,
+        "get_stock_price": get_stock_price,
+    }
 )
 
 # Create research manager agent
