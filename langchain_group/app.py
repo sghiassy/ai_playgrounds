@@ -106,8 +106,9 @@ def web_scraping(objective: str, url: str):
 
 
 # Function for get airtable records
-def get_airtable_records(base_id, table_id):
+def get_airtable_records(base_id="appfnzijVuAUkmdrX", table_id="tbl5k3fFYXxIxqgFA"):
     url = f"https://api.airtable.com/v0/{base_id}/{table_id}"
+    print(f"attempting to access {f"https://api.airtable.com/v0/{base_id}/{table_id}"}")
 
     headers = {
         "Authorization": f"Bearer {airtable_api_key}",
@@ -124,6 +125,7 @@ def get_airtable_records(base_id, table_id):
 
 def update_single_airtable_record(base_id, table_id, id, fields):
     url = f"https://api.airtable.com/v0/{base_id}/{table_id}"
+    print(f"attempting to access {f"https://api.airtable.com/v0/{base_id}/{table_id}"}")
 
     headers = {
         "Authorization": f"Bearer {airtable_api_key}",
