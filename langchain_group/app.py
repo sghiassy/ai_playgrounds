@@ -20,6 +20,14 @@ serper_api_key = os.getenv("SERP_API_KEY")
 airtable_api_key = os.getenv("AIRTABLE_API_KEY")
 config_list = config_list_from_json("OAI_CONFIG_LIST")
 
+
+base_llm_config = {
+    "seed": 42,
+    "config_list": config_list,
+    "temperature": 0,
+    "timeout": 8900
+}
+
 # ------------------ Create functions ------------------ #
 
 
@@ -150,12 +158,28 @@ user_proxy = UserProxyAgent(
 )
 
 # Create researcher agent
-researcher = GPTAssistantAgent(
-    name="researcher",
-    llm_config={
-        "config_list": config_list,
-        "assistant_id": "asst_8Omhf1nuemINsT3lKNpolK7U",
-    },
+# researcher = GPTAssistantAgent(
+#     name="researcher",
+#     llm_config={
+#         "config_list": config_list,
+#         "assistant_id": "asst_8Omhf1nuemINsT3lKNpolK7U",
+#     },
+# )
+researcher = autogen.AssistantAgent(
+    name="Research Manager",
+    system_message="""
+    You are a world class researcher, who can do detailed research on any topic and produce facts based results. You do not make things up.
+    You will try as hard as possible to gather facts & data to back up the research.
+
+    Please make sure you complete the objective above with the following rules:
+    1. You should do enough research to gather as much information as possible about the objective.
+    2. If there are URLs of relevant links & articles, you will scrape the url to gather more information
+    3. After scraping & searching, you should think "is there any new things I should search & scrap based on the data I collected to increase research quality?".
+    If the answer is yes, continue. But don't do this for more than 3 iterations
+    4. You should not make things up. You should only write facts & data that you have gathered.
+    5. In the final output, you should include all reference data & links to back up you research. You should include all reference data & links to back up your research.
+    """,
+    llm_config=base_llm_config,
 )
 
 researcher.register_function(
@@ -163,16 +187,24 @@ researcher.register_function(
 )
 
 # Create research manager agent
-research_manager = GPTAssistantAgent(
-    name="research_manager",
-    llm_config={
-        "config_list": config_list,
-        "assistant_id": "asst_m9olpYku7iAS92LtyvWasGM9",
-    },
+# research_manager = GPTAssistantAgent(
+#     name="research_manager",
+#     llm_config={
+#         "config_list": config_list,
+#         "assistant_id": "asst_m9olpYku7iAS92LtyvWasGM9",
+#     },
+# )
+research_manager = autogen.AssistantAgent(
+    name="Research Manager",
+    system_message="""
+    You are a Research Manager. You are harsh, relentless. You will review the result from the researcher, and always push back if
+    researcher didn't find the prospect's information. Be persistent, say 'No, you have to find the information, try again',
+    if the researcher doesn't find what the prospect wants""",
+    llm_config=base_llm_config,
 )
 
 
-# Create director agent
+#Create director agent
 director = GPTAssistantAgent(
     name="director",
     llm_config={
@@ -180,6 +212,16 @@ director = GPTAssistantAgent(
         "assistant_id": "asst_q3x2GOghocdIWvHehHze4KoA",
     },
 )
+# director = autogen.AssistantAgent(
+#     name="Research Director",
+#     system_message="""
+#     You are the Director of a research company. You will lookup a list of companies to research from the data provided in the AirTable URL.
+#     You can access the AirTable data via the `get_airtable_records` function. Once you have the data,  break it down into individual research tasks.
+#     For each research task, you will do the research.
+#     Once company's research is completed, you will give it to the Research Manager
+#     """,
+#     llm_config=base_llm_config,
+# )
 
 director.register_function(
     function_map={
